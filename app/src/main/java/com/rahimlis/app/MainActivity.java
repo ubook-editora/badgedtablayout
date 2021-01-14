@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.rahimlis.badgedtablayout.BadgedTabLayout;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,10 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
-     * The {@link ViewPager} that will host the section contents.
+     * The {@link ViewPager2} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
 
+    /**
+     * The {@link BadgedTabLayout} that will host the tabs layout.
+     */
     private BadgedTabLayout tabLayout;
 
     @Override
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
@@ -58,7 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tabLayout = findViewById(R.id.tabs);
 
-        tabLayout.setupWithViewPager(mViewPager);
+        new TabLayoutMediator(tabLayout, mViewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(getPageTitle(position));
+            }
+
+        }).attach();
 
         tabLayout.setIcon(0, R.drawable.ic_favorite);
         tabLayout.setIcon(1, R.drawable.ic_shopping);
@@ -116,36 +129,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public static class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public static class SectionsPagerAdapter extends FragmentStateAdapter {
 
-        public SectionsPagerAdapter(@NonNull FragmentManager fm, int behavior) {
-            super(fm, behavior);
+        public SectionsPagerAdapter(FragmentActivity fa) {
+            super(fa);
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public Fragment createFragment(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceHolderFragment.newInstance(position + 1);
         }
 
         @Override
-        public int getCount() {
+        public int getItemCount() {
             // Show 3 total pages.
             return 3;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Section";
-                case 1:
-                    return "";
-                case 2:
-                    return "SECT 3";
-            }
-            return null;
-        }
     }
+
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return "Section";
+            case 1:
+                return "";
+            case 2:
+                return "SECT 3";
+        }
+        return null;
+    }
+
 }
