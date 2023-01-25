@@ -8,9 +8,9 @@ Did you see those small badges indicating new messages count in WhatsApp near yo
 You can achieve the same result using this library. It is created to add small circled badges in tab
 layout.
 
-### Screen
+### Screenshot
 
-![alt text](working.gif)
+![Screenshot](working.gif)
 
 # Installation
 
