@@ -96,28 +96,43 @@ public class BadgedTabLayout extends TabLayout {
         }
     }
 
+    /**
+     * Creates color states list out of two given params
+     *
+     * @param defaultColor  color for state_selected = false
+     * @param selectedColor color for state_selected = true
+     * @return {@link ColorStateList} object
+     */
+    private static ColorStateList createColorStateList(int defaultColor, int selectedColor) {
+        final int[][] states = new int[2][];
+        final int[] colors = new int[2];
+        int i = 0;
+        states[i] = SELECTED_STATE_SET;
+        colors[i] = selectedColor;
+        i++;
+        // Default enabled state
+        states[i] = EMPTY_STATE_SET;
+        colors[i] = defaultColor;
+        i++;
+        return new ColorStateList(states, colors);
+    }
+
     public ColorStateList getBadgeBackgroundColors() {
         return badgeBackgroundColors;
     }
 
+    /**
+     * sets badge background color
+     *
+     * @param badgeBackgroundColors state color list for badge background (selected/unselected)
+     */
+    public void setBadgeBackgroundColors(ColorStateList badgeBackgroundColors) {
+        this.badgeBackgroundColors = badgeBackgroundColors;
+        updateTabViews();
+    }
+
     public float getTabTextSize() {
         return tabTextSize;
-    }
-
-    /**
-     * @param maxWidthText in pixels
-     */
-    public void setMaxWidthText(int maxWidthText) {
-        this.maxWidthText = maxWidthText;
-        updateTabViews();
-    }
-
-    /**
-     * @param isSpanText in boolean
-     */
-    public void isSpanText(boolean isSpanText) {
-        this.isSpanText = isSpanText;
-        updateTabViews();
     }
 
     /**
@@ -133,6 +148,22 @@ public class BadgedTabLayout extends TabLayout {
      */
     public void setTabTextSize(@DimenRes int dimensionRes) {
         this.tabTextSize = getResources().getDimension(dimensionRes);
+        updateTabViews();
+    }
+
+    /**
+     * @param maxWidthText in pixels
+     */
+    public void setMaxWidthText(int maxWidthText) {
+        this.maxWidthText = maxWidthText;
+        updateTabViews();
+    }
+
+    /**
+     * @param isSpanText in boolean
+     */
+    public void isSpanText(boolean isSpanText) {
+        this.isSpanText = isSpanText;
         updateTabViews();
     }
 
@@ -166,18 +197,18 @@ public class BadgedTabLayout extends TabLayout {
         updateTabViews();
     }
 
-    /**
-     * sets badge background color
-     *
-     * @param badgeBackgroundColors state color list for badge background (selected/unselected)
-     */
-    public void setBadgeBackgroundColors(ColorStateList badgeBackgroundColors) {
-        this.badgeBackgroundColors = badgeBackgroundColors;
-        updateTabViews();
-    }
-
     public ColorStateList getBadgeTextColors() {
         return badgeTextColors;
+    }
+
+    /**
+     * sets badge text color
+     *
+     * @param badgeTextColors state color list for badge text (selected/unselected)
+     */
+    public void setBadgeTextColors(ColorStateList badgeTextColors) {
+        this.badgeTextColors = badgeTextColors;
+        updateTabViews();
     }
 
     public TextUtils.TruncateAt getTabTruncateAt() {
@@ -198,23 +229,11 @@ public class BadgedTabLayout extends TabLayout {
         updateTabViews();
     }
 
-    /**
-     * sets badge text color
-     *
-     * @param badgeTextColors state color list for badge text (selected/unselected)
-     */
-    public void setBadgeTextColors(ColorStateList badgeTextColors) {
-        this.badgeTextColors = badgeTextColors;
-        updateTabViews();
-    }
-
-
     @Override
     public void addTab(@NonNull Tab tab, int position, boolean setSelected) {
         super.addTab(tab, position, setSelected);
         onTabAdded(tab);
     }
-
 
     /**
      * Invalidates the tab views
@@ -269,7 +288,6 @@ public class BadgedTabLayout extends TabLayout {
         icon.setVisibility(VISIBLE);
     }
 
-
     /**
      * @param position of tab where icon need to be set
      * @param resourse drawable resourse of vector icon
@@ -285,7 +303,6 @@ public class BadgedTabLayout extends TabLayout {
 
         makeCustomIcon(tab, tab.getCustomView());
     }
-
 
     /**
      * @param view custom view, manually inflated from badged_tab.xml
@@ -305,7 +322,6 @@ public class BadgedTabLayout extends TabLayout {
 
         DrawableCompat.setTintList(badge.getBackground(), badgeBackgroundColors);
     }
-
 
     /**
      * @param tab  for which custom title is created
@@ -366,7 +382,6 @@ public class BadgedTabLayout extends TabLayout {
         TransitionManager.beginDelayedTransition((ViewGroup) tab.getCustomView());
     }
 
-
     public void onTabAdded(Tab tab) {
         if (tab == null) {
             Log.e("BadgedTabLayout", "Tab is null. Not setting custom view");
@@ -374,7 +389,6 @@ public class BadgedTabLayout extends TabLayout {
         }
         tab.setCustomView(makeCustomView(tab, R.layout.badged_tab));
     }
-
 
     /**
      * takes primary and primaryDark colors from context
@@ -390,28 +404,6 @@ public class BadgedTabLayout extends TabLayout {
         int primaryDarkColor = a.getColor(1, 0);
         a.recycle();
         return createColorStateList(primaryDarkColor, primaryColor);
-    }
-
-
-    /**
-     * Creates color states list out of two given params
-     *
-     * @param defaultColor  color for state_selected = false
-     * @param selectedColor color for state_selected = true
-     * @return {@link ColorStateList} object
-     */
-    private static ColorStateList createColorStateList(int defaultColor, int selectedColor) {
-        final int[][] states = new int[2][];
-        final int[] colors = new int[2];
-        int i = 0;
-        states[i] = SELECTED_STATE_SET;
-        colors[i] = selectedColor;
-        i++;
-        // Default enabled state
-        states[i] = EMPTY_STATE_SET;
-        colors[i] = defaultColor;
-        i++;
-        return new ColorStateList(states, colors);
     }
 
 }

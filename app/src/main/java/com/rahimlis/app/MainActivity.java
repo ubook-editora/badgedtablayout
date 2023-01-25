@@ -125,6 +125,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return "Section";
+            case 1:
+                return "";
+            case 2:
+                return "SECT 3";
+        }
+        return null;
+    }
+
     /**
      * A {@link FragmentStateAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -148,18 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return 3;
         }
 
-    }
-
-    public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Section";
-            case 1:
-                return "";
-            case 2:
-                return "SECT 3";
-        }
-        return null;
     }
 
 }
