@@ -1,7 +1,9 @@
 package com.rahimlis.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,18 +78,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.setIcon(0, R.drawable.ic_favorite);
         tabLayout.setIcon(1, R.drawable.ic_shopping);
 
-
         tabLayout.setBadgeText(0, String.valueOf(counter));
-
-        tabLayout.setBadgeText(2, "13213131");
+        tabLayout.setBadgeText(2, "123456789");
 
         tabLayout.setTabFont(ResourcesCompat.getFont(this, R.font.trench));
-
+        tabLayout.setTabTextSize(spToPixels(this, 14f));
         tabLayout.setBadgeTruncateAt(TextUtils.TruncateAt.MIDDLE);
-        // tabLayout.setTabTextSize(14f);
-//        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-//        tabLayout.isSpanText(true);
-//        tabLayout.setMaxWidthText(5000);
+
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setMaxWidthText(Integer.MAX_VALUE);
+
+        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //tabLayout.setTabTruncateAt(TextUtils.TruncateAt.START);
+        //tabLayout.isSpanText(true);
+        //tabLayout.setMaxWidthText(5000);
     }
 
 
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 return "";
             case 2:
-                return "SECT 3";
+                return "Big Tab Text That Can't Marquee And All Need Be Visible";
         }
         return null;
     }
@@ -160,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return 3;
         }
 
+    }
+
+    public float spToPixels(Context context, float sp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 
 }

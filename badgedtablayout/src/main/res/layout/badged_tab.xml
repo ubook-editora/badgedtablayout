@@ -28,7 +28,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:maxWidth="@dimen/tab_text_max_width"
             android:singleLine="true"
-            android:text="Section 1sdassbsd kjasbdkjasbdkasjsajdsda"
+            android:text="Big Section Title To Preview And Test"
             android:textAllCaps="true" />
 
     </LinearLayout>

@@ -374,9 +374,15 @@ public class BadgedTabLayout extends TabLayout {
             badge.setVisibility(View.GONE);
             tabText.setMaxWidth(Integer.MAX_VALUE);
         } else {
-            int maxWidth = getResources().getDimensionPixelSize(R.dimen.tab_text_max_width);
             badge.setText(text);
-            tabText.setMaxWidth(maxWidth);
+
+            if (maxWidthText != -1) {
+                tabText.setMaxWidth(maxWidthText);
+            } else {
+                int maxWidth = getResources().getDimensionPixelSize(R.dimen.tab_text_max_width);
+                tabText.setMaxWidth(maxWidth);
+            }
+
             badge.setVisibility(View.VISIBLE);
         }
         TransitionManager.beginDelayedTransition((ViewGroup) tab.getCustomView());
