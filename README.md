@@ -1,8 +1,7 @@
 # BadgedTabLayout
 
-[![](https://jitpack.io/v/rahimlis/badgedtablayout.svg)](https://jitpack.io/#rahimlis/badgedtablayout)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BadgedTabLayout-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6087)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/rahimlis/badgedtablayout/issues)
+[![](https://jitpack.io/v/ubook-editora/badgedtablayout.svg)](https://jitpack.io/#ubook-editora/badgedtablayout)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ubook-editora/badgedtablayout/issues)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Did you see those small badges indicating new messages count in WhatsApp near your chats?
